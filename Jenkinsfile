@@ -3,26 +3,22 @@ pipeline
     agent any
     stages
        {
-           stage("Cleaning stage")
+           stage('Message')
+           steps
+           {
+               echo 'Job started'
+           }
+           stage ('Build') 
+           {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+            }
+            post 
                {
-               steps
-                   {
-                       sh "mvn -Dmaven.test.failure.ignore=true clean"
-                    }
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
                }
-          stage("Testing stage")
-               {
-               steps
-                   {
-                       sh "mvn -Dmaven.test.failure.ignore=true test"
-                   }
-               }
-          stage("Packaging stage")
-               {
-               steps
-                 {
-                   sh "mvn -Dmaven.test.failure.ignore=true package"
-                 }
-               }
+           }
        }
 }
