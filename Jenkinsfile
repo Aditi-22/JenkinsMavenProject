@@ -4,9 +4,11 @@ pipeline
     stages
        {
            stage('Message')
+           {
            steps
            {
                echo 'Job started'
+           }
            }
            stage ('Build') 
            {
