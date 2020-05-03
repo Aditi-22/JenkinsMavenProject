@@ -7,21 +7,21 @@ pipeline
                {
                steps
                    {
-                      sh "mvn clean"
-                   }
+                       sh "mvn -Dmaven.test.failure.ignore=true clean"
+                    }
                }
           stage("Testing stage")
                {
                steps
                    {
-                       sh "mvn test"
+                       sh "mvn -Dmaven.test.failure.ignore=true test"
                    }
                }
           stage("Packaging stage")
                {
                steps
                  {
-                   sh "mvn pkg"
+                   sh "mvn -Dmaven.test.failure.ignore=true package"
                  }
                }
        }
