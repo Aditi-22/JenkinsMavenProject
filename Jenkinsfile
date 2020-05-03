@@ -13,12 +13,16 @@ pipeline
            stage ('Build') 
            {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                //to clean and test the project
+                sh 'mvn clean test' 
+                //packaging
+                sh 'mvn package'
             }
             post 
                {
                 success {
                     junit 'target/surefire-reports/**/*.xml' 
+                    archiveArtifacts 'target/*.jar'
                 }
                }
            }
